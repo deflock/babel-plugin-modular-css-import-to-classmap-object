@@ -31,9 +31,16 @@ export default function visitor({types: t}) {
 
                 const obj = classes[sheetName];
 
-                const properties = Object.keys(obj).map(k => {
-                    return t.objectProperty(t.stringLiteral(k), t.stringLiteral(obj[k]));
-                });
+                let properties;
+
+                if (obj) {
+                    properties = Object.keys(obj).map(k => {
+                        return t.objectProperty(t.stringLiteral(k), t.stringLiteral(obj[k]));
+                    });
+                }
+                else {
+                    properties = [];
+                }
 
                 const variableName = path.node.specifiers[0].local.name;
 
